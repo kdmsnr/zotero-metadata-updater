@@ -81,6 +81,22 @@ Transient item identity fields must also not be copied:
 - Build: `npm run build`
 - Dev mode: `npm start`
 - Runtime tests: `npm test`
+- `.env` is only required for `npm start` / `npm test`, not for `npm run build`
+
+Important build outputs:
+
+- `.scaffold/build/metadata-updater.xpi`
+- `.scaffold/build/update.json`
+- `.scaffold/build/update-beta.json`
+
+## Release automation
+
+- Pushing a tag like `v0.1.0` runs `.github/workflows/release.yml`
+- The workflow builds on GitHub Actions and uploads:
+  - `metadata-updater.xpi`
+  - `update.json`
+  - `update-beta.json`
+    to the GitHub Release for that tag
 
 ## Local test caveat
 

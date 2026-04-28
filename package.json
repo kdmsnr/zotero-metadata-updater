@@ -12,13 +12,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kdmsnr/zotero-doi-metadata.git"
+    "url": "git+https://github.com/kdmsnr/zotero-metadata-updater.git"
   },
   "author": "kdmsnr",
   "bugs": {
-    "url": "https://github.com/kdmsnr/zotero-doi-metadata/issues"
+    "url": "https://github.com/kdmsnr/zotero-metadata-updater/issues"
   },
-  "homepage": "https://github.com/kdmsnr/zotero-doi-metadata#readme",
+  "homepage": "https://github.com/kdmsnr/zotero-metadata-updater#readme",
   "license": "AGPL-3.0-or-later",
   "scripts": {
     "start": "zotero-plugin serve",
