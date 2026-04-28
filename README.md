@@ -43,9 +43,10 @@ The DOI update does **not** overwrite:
 
 Important build outputs:
 
-- `.scaffold/build/metadata-updater.xpi`
+- `.scaffold/build/metadata-updater-<version>.xpi`
 - `.scaffold/build/update.json`
 - `.scaffold/build/update-beta.json`
+- `./metadata-updater-<version>.xpi`
 
 ## GitHub Release automation
 
@@ -53,7 +54,7 @@ Pushing a tag such as `v0.1.0` triggers `.github/workflows/release.yml`, which:
 
 1. installs dependencies on GitHub Actions
 2. runs `npm run build`
-3. uploads `metadata-updater.xpi`, `update.json`, and `update-beta.json` to the GitHub Release for that tag
+3. uploads `metadata-updater-<version>.xpi`, `update.json`, and `update-beta.json` to the GitHub Release for that tag
 
 ## Notes
 

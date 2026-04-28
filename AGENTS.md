@@ -85,15 +85,16 @@ Transient item identity fields must also not be copied:
 
 Important build outputs:
 
-- `.scaffold/build/metadata-updater.xpi`
+- `.scaffold/build/metadata-updater-<version>.xpi`
 - `.scaffold/build/update.json`
 - `.scaffold/build/update-beta.json`
+- `./metadata-updater-<version>.xpi`
 
 ## Release automation
 
 - Pushing a tag like `v0.1.0` runs `.github/workflows/release.yml`
 - The workflow builds on GitHub Actions and uploads:
-  - `metadata-updater.xpi`
+  - `metadata-updater-<version>.xpi`
   - `update.json`
   - `update-beta.json`
     to the GitHub Release for that tag

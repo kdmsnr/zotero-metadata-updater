@@ -27,10 +27,13 @@ jobs:
       - name: Build release assets
         run: npm run build
 
+      - name: Set release version
+        run: echo "RELEASE_VERSION=${GITHUB_REF_NAME#v}" >> "$GITHUB_ENV"
+
       - name: Verify release files
         run: |
           ls -lh .scaffold/build
-          test -f .scaffold/build/metadata-updater.xpi
+          test -f .scaffold/build/metadata-updater-${RELEASE_VERSION}.xpi
           test -f .scaffold/build/update.json
           test -f .scaffold/build/update-beta.json
 
@@ -40,6 +43,6 @@ jobs:
           generate_release_notes: true
           fail_on_unmatched_files: true
           files: |
-            .scaffold/build/metadata-updater.xpi
+            .scaffold/build/metadata-updater-${{ env.RELEASE_VERSION }}.xpi
             .scaffold/build/update.json
             .scaffold/build/update-beta.json
