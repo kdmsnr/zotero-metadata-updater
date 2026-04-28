@@ -93,11 +93,9 @@ Important build outputs:
 ## Release automation
 
 - Pushing a tag like `v0.1.0` runs `.github/workflows/release.yml`
-- The workflow builds on GitHub Actions and uploads:
-  - `metadata-updater-<version>.xpi`
-  - `update.json`
-  - `update-beta.json`
-    to the GitHub Release for that tag
+- The workflow builds on GitHub Actions and uploads `metadata-updater-<version>.xpi` to the GitHub Release for that tag
+- The workflow also creates or updates a separate GitHub Release with tag `release` that hosts `update.json` and `update-beta.json`
+- Zotero update checks use the fixed `release/update*.json` URLs; keep the manifest files on the `release` channel rather than versioned tag releases
 
 ## Local test caveat
 

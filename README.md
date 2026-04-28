@@ -54,7 +54,18 @@ Pushing a tag such as `v0.1.0` triggers `.github/workflows/release.yml`, which:
 
 1. installs dependencies on GitHub Actions
 2. runs `npm run build`
-3. uploads `metadata-updater-<version>.xpi`, `update.json`, and `update-beta.json` to the GitHub Release for that tag
+3. uploads `metadata-updater-<version>.xpi` to the GitHub Release for that tag
+4. creates or updates a separate `release` GitHub Release that hosts `update.json` and `update-beta.json`
+
+## Releasing
+
+1. Bump the version in `package.json` and `package-lock.json` (for example, `npm version 0.1.2 --no-git-tag-version`)
+2. Run `npm run lint:check`
+3. Run `npm run build`
+4. Commit the release changes
+5. Create a tag named `v<version>` and push the commit and tag
+
+When the tag is pushed, GitHub Actions publishes the versioned `.xpi` to the matching tag release and refreshes the `release` channel's `update.json` and `update-beta.json`, which Zotero uses for **Check for Updates**.
 
 ## Notes
 

@@ -37,12 +37,22 @@ jobs:
           test -f .scaffold/build/update.json
           test -f .scaffold/build/update-beta.json
 
-      - name: Publish GitHub release assets
+      - name: Publish versioned release asset
         uses: softprops/action-gh-release@v2
         with:
           generate_release_notes: true
           fail_on_unmatched_files: true
           files: |
             .scaffold/build/metadata-updater-${{ env.RELEASE_VERSION }}.xpi
-            .scaffold/build/update.json
-            .scaffold/build/update-beta.json
+
+      - name: Publish update manifests to release channel
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release view release --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1 \
+            || gh release create release --repo "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" --title "Release Channel" --notes ""
+          gh release upload release \
+            .scaffold/build/update.json \
+            .scaffold/build/update-beta.json \
+            --clobber \
+            --repo "$GITHUB_REPOSITORY"
