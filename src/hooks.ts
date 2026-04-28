@@ -1,4 +1,4 @@
-import { registerLibraryMenus, registerMenusInWindow, unregisterLibraryMenus } from "./modules/menu";
+import { registerLibraryMenus, unregisterLibraryMenus } from "./modules/menu";
 import { initLocale } from "./utils/locale";
 
 async function onStartup() {
@@ -9,11 +9,12 @@ async function onStartup() {
   ]);
 
   initLocale();
-  registerLibraryMenus();
 
   await Promise.all(
     Zotero.getMainWindows().map((win) => onMainWindowLoad(win)),
   );
+
+  registerLibraryMenus();
 
   // Mark initialized as true to confirm plugin loading status
   // outside of the plugin (e.g. scaffold testing process)
@@ -22,11 +23,11 @@ async function onStartup() {
 
 async function onMainWindowLoad(win: _ZoteroTypes.MainWindow): Promise<void> {
   win.MozXULElement.insertFTLIfNeeded(
+    `${addon.data.config.addonRef}-addon.ftl`,
+  );
+  win.MozXULElement.insertFTLIfNeeded(
     `${addon.data.config.addonRef}-mainWindow.ftl`,
   );
-
-  // Register context menu in this window
-  registerMenusInWindow(win);
 }
 
 async function onMainWindowUnload(_win: Window): Promise<void> {}
