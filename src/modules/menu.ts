@@ -10,7 +10,7 @@ const MENU_IDS = {
   libraryItem: `zotero-itemmenu-${config.addonRef}-refresh`,
 };
 
-let registered = false;
+let registeredMenuID: string | false = false;
 
 function getRefreshableItems(items?: Zotero.Item[]): RefreshableItem[] {
   return (items ?? []).filter((item): item is RefreshableItem => {
@@ -26,25 +26,30 @@ function triggerRefresh() {
 }
 
 export function registerLibraryMenus() {
-  if (registered) {
+  if (registeredMenuID) {
     return;
   }
 
-  ztoolkit.Menu.register("item", {
-    tag: "menuitem",
-    id: MENU_IDS.libraryItem,
-    label: getString("menu-refresh-metadata"),
-    commandListener: () => {
-      triggerRefresh();
-    },
+  registeredMenuID = Zotero.MenuManager.registerMenu({
+    menuID: MENU_IDS.libraryItem,
+    pluginID: config.addonID,
+    target: "main/library/item",
+    menus: [
+      {
+        menuType: "menuitem",
+        l10nID: getString("menu-refresh-metadata"),
+        onCommand: () => {
+          triggerRefresh();
+        },
+      },
+    ],
   });
-  registered = true;
 }
 
 export function unregisterLibraryMenus() {
-  if (!registered) {
+  if (!registeredMenuID) {
     return;
   }
-  ztoolkit.unregisterAll();
-  registered = false;
+  Zotero.MenuManager.unregisterMenu(MENU_IDS.libraryItem);
+  registeredMenuID = false;
 }
