@@ -1,0 +1,13 @@
+untitled-item = Untitled item
+menu-refresh-metadata = Update Metadata
+refresh-start = Refreshing DOI metadata for { $count } item(s)
+refresh-progress = [{ $current }/{ $total }] { $title }
+refresh-success = Updated { $count } item(s) from DOI
+refresh-partial = Updated { $successCount } item(s); { $failureCount } item(s) failed
+refresh-failure = No items were updated ({ $failureCount } failure(s))
+refresh-failure-detail = { $title }: { $message }
+refresh-no-selection = Select at least one editable top-level item first
+refresh-no-doi = No DOI was found in the DOI field or Extra
+refresh-no-translator = Zotero could not find a DOI translator for { $doi }
+refresh-lookup-failed = Zotero could not resolve metadata for DOI { $doi }
+refresh-unknown-error = Metadata refresh failed unexpectedly

@@ -1,0 +1,13 @@
+untitled-item = 未命名条目
+menu-refresh-metadata = 更新元数据
+refresh-start = 正在根据 DOI 刷新 { $count } 个条目的元数据
+refresh-progress = [{ $current }/{ $total }] { $title }
+refresh-success = 已根据 DOI 更新 { $count } 个条目
+refresh-partial = 已更新 { $successCount } 个条目；{ $failureCount } 个条目失败
+refresh-failure = 没有条目被更新（失败 { $failureCount } 个）
+refresh-failure-detail = { $title }：{ $message }
+refresh-no-selection = 请先选择至少一个可编辑的顶层条目
+refresh-no-doi = DOI 字段和 Extra 中都没有找到 DOI
+refresh-no-translator = Zotero 无法为 { $doi } 找到 DOI translator
+refresh-lookup-failed = Zotero 无法解析 DOI { $doi } 的元数据
+refresh-unknown-error = 元数据刷新时发生未预期错误
