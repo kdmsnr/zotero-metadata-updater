@@ -4,7 +4,6 @@ import {
   showOperationError,
   type RefreshableItem,
 } from "./metadataRefresh";
-import { getString } from "../utils/locale";
 
 const MENU_IDS = {
   libraryItem: `zotero-itemmenu-${config.addonRef}-refresh`,
@@ -37,7 +36,7 @@ export function registerLibraryMenus() {
     menus: [
       {
         menuType: "menuitem",
-        l10nID: getString("menu-refresh-metadata"),
+        l10nID: `${config.addonRef}-menu-refresh-metadata`,
         onCommand: () => {
           triggerRefresh();
         },
