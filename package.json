@@ -5,7 +5,7 @@
   "description": "Zotero 9 plugin for updating selected item metadata from DOI",
   "config": {
     "addonName": "Metadata Updater",
-    "addonID": "zotero-doi-metadata@kdmsnr.local",
+    "addonID": "zotero-metadata-updater@kdmsnr.local",
     "addonRef": "zoterodoimetadata",
     "addonInstance": "ZoteroDOIMetadata",
     "prefsPrefix": "extensions.zotero.zoterodoimetadata"

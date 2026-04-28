@@ -1,4 +1,4 @@
-import { registerLibraryMenus, unregisterLibraryMenus } from "./modules/menu";
+import { registerLibraryMenus, registerMenusInWindow, unregisterLibraryMenus } from "./modules/menu";
 import { initLocale } from "./utils/locale";
 
 async function onStartup() {
@@ -24,6 +24,9 @@ async function onMainWindowLoad(win: _ZoteroTypes.MainWindow): Promise<void> {
   win.MozXULElement.insertFTLIfNeeded(
     `${addon.data.config.addonRef}-mainWindow.ftl`,
   );
+
+  // Register context menu in this window
+  registerMenusInWindow(win);
 }
 
 async function onMainWindowUnload(_win: Window): Promise<void> {}

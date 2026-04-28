@@ -4,12 +4,13 @@ import {
   showOperationError,
   type RefreshableItem,
 } from "./metadataRefresh";
+import { getString } from "../utils/locale";
 
 const MENU_IDS = {
   libraryItem: `zotero-itemmenu-${config.addonRef}-refresh`,
 };
 
-let registeredMenuID: string | false = false;
+let menuWindow: any = null;
 
 function getRefreshableItems(items?: Zotero.Item[]): RefreshableItem[] {
   return (items ?? []).filter((item): item is RefreshableItem => {
@@ -25,30 +26,54 @@ function triggerRefresh() {
 }
 
 export function registerLibraryMenus() {
-  if (registeredMenuID) {
+  // This is called from onStartup which doesn't have window context yet
+  // Menu registration will be done in onMainWindowLoad
+}
+
+export function registerMenusInWindow(window: any) {
+  if (menuWindow === window) {
     return;
   }
 
-  registeredMenuID = Zotero.MenuManager.registerMenu({
-    menuID: MENU_IDS.libraryItem,
-    pluginID: config.addonID,
-    target: "main/library/item",
-    menus: [
-      {
-        menuType: "menuitem",
-        l10nID: `${config.addonRef}-menu-refresh-metadata`,
-        onCommand: () => {
-          triggerRefresh();
-        },
-      },
-    ],
-  });
+  try {
+    const contextMenu = window.document.getElementById("zotero-items-contextmenu");
+    
+    if (!contextMenu) {
+      // Fallback: try to find the menu and create if needed
+      return;
+    }
+
+    // Remove old menu item if exists
+    const oldMenuItem = window.document.getElementById(MENU_IDS.libraryItem);
+    if (oldMenuItem) {
+      oldMenuItem.remove();
+    }
+
+    // Create menu item
+    const menuitem = window.document.createXULElement("menuitem");
+    menuitem.id = MENU_IDS.libraryItem;
+    menuitem.setAttribute("label", getString("menu-refresh-metadata"));
+    menuitem.addEventListener("command", () => {
+      triggerRefresh();
+    });
+
+    contextMenu.appendChild(menuitem);
+    menuWindow = window;
+  } catch (e) {
+    // silently fail
+  }
 }
 
 export function unregisterLibraryMenus() {
-  if (!registeredMenuID) {
-    return;
+  if (menuWindow) {
+    try {
+      const menuitem = menuWindow.document.getElementById(MENU_IDS.libraryItem);
+      if (menuitem) {
+        menuitem.remove();
+      }
+    } catch (e) {
+      // ignore
+    }
+    menuWindow = null;
   }
-  Zotero.MenuManager.unregisterMenu(MENU_IDS.libraryItem);
-  registeredMenuID = false;
 }
