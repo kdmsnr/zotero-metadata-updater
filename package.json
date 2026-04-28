@@ -1,7 +1,7 @@
 {
   "name": "metadata-updater",
   "type": "module",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Zotero 9 plugin for updating selected item metadata from DOI",
   "config": {
     "addonName": "Metadata Updater",
